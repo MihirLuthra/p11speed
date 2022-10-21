@@ -455,7 +455,7 @@ int testSign
 			return 1;
 		}
 
-		mechanismType = CKM_RSA_PKCS;
+		mechanismType = CKM_SHA256_RSA_PKCS;
 		hashType = HashAlgo::SHA256;
 		result = generateRsa(hSessionRW, bits, hPublicKey, hPrivateKey);
 	}
@@ -505,7 +505,7 @@ int testSign
 			return 1;
 		}
 
-		mechanismType = CKM_ECDSA;
+		mechanismType = CKM_ECDSA_SHA256;
 		result = generateEcdsa(hSessionRW, bits, hPublicKey, hPrivateKey);
 
 	}
@@ -655,7 +655,7 @@ int generateRsa(CK_SESSION_HANDLE hSession, CK_ULONG keysize, CK_OBJECT_HANDLE &
 		{ CKA_SENSITIVE,   &bTrue,    sizeof(bTrue)   },
 		{ CKA_TOKEN,       &bTrue,    sizeof(bTrue)   },
 		{ CKA_PRIVATE,     &bTrue,    sizeof(bTrue)   },
-		{ CKA_EXTRACTABLE, &bFalse,   sizeof(bFalse)  }
+		{ CKA_EXTRACTABLE, &bTrue,    sizeof(bTrue)   }
 	};
 
 	CK_RV rv = p11->C_GenerateKeyPair(hSession, &mechanism,
@@ -719,7 +719,7 @@ int generateDsa(CK_SESSION_HANDLE hSession, CK_ULONG keysize, CK_OBJECT_HANDLE &
 		{ CKA_SENSITIVE,   &bTrue,    sizeof(bTrue)   },
 		{ CKA_TOKEN,       &bTrue,    sizeof(bTrue)   },
 		{ CKA_PRIVATE,     &bTrue,    sizeof(bTrue)   },
-		{ CKA_EXTRACTABLE, &bFalse,   sizeof(bFalse)  }
+		{ CKA_EXTRACTABLE, &bTrue,    sizeof(bTrue)   }
 	};
 
 	CK_RV rv = p11->C_GenerateKey(hSession, &mechanism1,
@@ -797,7 +797,7 @@ int generateEcdsa(CK_SESSION_HANDLE hSession, CK_ULONG keysize, CK_OBJECT_HANDLE
 		{ CKA_SENSITIVE,   &bTrue,    sizeof(bTrue)   },
 		{ CKA_TOKEN,       &bTrue,    sizeof(bTrue)   },
 		{ CKA_PRIVATE,     &bTrue,    sizeof(bTrue)   },
-		{ CKA_EXTRACTABLE, &bFalse,   sizeof(bFalse)  }
+		{ CKA_EXTRACTABLE, &bTrue,    sizeof(bTrue)   }
 	};
 
 	// Select the curve
